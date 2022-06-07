@@ -1,7 +1,7 @@
 import { Injectable, Query } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import got from 'got';
-import { GetCoverageDto } from '../dto/get-coverage.dto';
+//import { GetCoverageDto } from '../dto/get-coverage.dto';
 const moment = require('moment');
 
 @Injectable()
@@ -9,15 +9,29 @@ export class CarService {
   private VT_BASE_PATH = this.configService.get<string>('baseURLVT');
   constructor(private configService: ConfigService) {}
 
-  async findAll(@Query() data: GetCoverageDto): Promise<any> {
-    let now = moment().format('yyyy-MM-DD');
-    const coverageModule = data.id_plan;
-    const urlService: string = !isNaN(coverageModule)
-      ? `${this.VT_BASE_PATH}/Backoffice/ProductManager.svc/REST/CoverageByProductLkp?lineOfBusiness=${data.id_ramo}&productCode=${data.id_producto}&coverageModule=${data.id_plan}&atDate=${now}`
-      : `${this.VT_BASE_PATH}/Backoffice/ProductManager.svc/REST/CoverageByProductLkp?lineOfBusiness=${data.id_ramo}&productCode=${data.id_producto}&atDate=${now}`;
+  // async findAll(@Query() data: GetCoverageDto): Promise<any> {
+  //   let now = moment().format('yyyy-MM-DD');
+  //   const coverageModule = data.id_plan;
+  //   const urlService: string = !isNaN(coverageModule)
+  //     ? `${this.VT_BASE_PATH}/Backoffice/ProductManager.svc/REST/CoverageByProductLkp?lineOfBusiness=${data.id_ramo}&productCode=${data.id_producto}&coverageModule=${data.id_plan}&atDate=${now}`
+  //     : `${this.VT_BASE_PATH}/Backoffice/ProductManager.svc/REST/CoverageByProductLkp?lineOfBusiness=${data.id_ramo}&productCode=${data.id_producto}&atDate=${now}`;
+  //   try {
+  //     const result = await got.get(urlService, {}).json();
+  //     return await this.transformationData(result);
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
+
+  async findAll(): Promise<any> {
     try {
-      const result = await got.get(urlService, {}).json();
-      return await this.transformationData(result);
+      const result = await got
+        .get(
+          `${this.VT_BASE_PATH}/Extended/ExtendedService.svc/REST/CategoryLkp?RiskType=3&DefinitionType=3`,
+          {},
+        )
+        .json();
+      return result;
     } catch (error) {
       throw error;
     }

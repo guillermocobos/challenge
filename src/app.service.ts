@@ -1,12 +1,12 @@
-import { Injectable, Query } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import got from 'got';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello Karvi!';
+  private VT_BASE_PATH = this.configService.get<string>('baseURLVT');
+  constructor(private configService: ConfigService) {
   }
-
-
+  getHello(): string {
+    return `Escuchando en URL ${this.VT_BASE_PATH}`;
+  }
 }
