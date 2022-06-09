@@ -5,11 +5,12 @@ Aplicacion de NodeJs, utizando NestJS como framework.
 
 ## Instalacion
 
-```Clonar Repositorio desde 
+Clonar Repositorio desde 
 https://github.com/guillermocobos/challengeKarvi.git
-```
+
 
 ```bash
+Correr el siguiente comando
 $ npm install
 ```
 ## Configurar Puerto
