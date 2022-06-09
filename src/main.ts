@@ -7,8 +7,10 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({ skipMissingProperties: true, whitelist: true }),
   );
-  await app.listen(3000);
-  const route = process.env.baseURLVT;
-  Logger.log(`Listening services on: ${route}`);
+
+  const PORT = process.env.PORT;
+  await app.listen(PORT);
+  
+  Logger.log(`Listening services on: ${PORT}`);
 }
 bootstrap();
